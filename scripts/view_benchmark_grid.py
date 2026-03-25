@@ -21,7 +21,7 @@ from pathlib import Path
 
 METHODS = ("astra", "grep", "ripgrep", "traditional_rag")
 METHOD_LABELS = {
-    "astra": "ASTra",
+    "astra": "ASTRA",
     "grep": "grep",
     "ripgrep": "ripgrep",
     "traditional_rag": "traditional_rag",

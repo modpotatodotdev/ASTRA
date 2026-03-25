@@ -134,7 +134,7 @@ impl<'a> McpServer<'a> {
                 }
             },
             "serverInfo": {
-                "name": "ASTra",
+                "name": "ASTRA",
                 "version": env!("CARGO_PKG_VERSION")
             }
         });
@@ -155,7 +155,7 @@ impl<'a> McpServer<'a> {
             ),
             search_tool_definition(
                 "astra_semantic_rag_search",
-                "Run regular semantic RAG over ASTra's indexed symbol chunks (no path traversal). Use this alongside path-biased search when you want direct chunk retrieval.",
+                "Run regular semantic RAG over ASTRA's indexed symbol chunks (no path traversal). Use this alongside path-biased search when you want direct chunk retrieval.",
             ),
             search_tool_definition(
                 "astra_structured_path_search",
@@ -402,7 +402,7 @@ fn query_database() {
         let parsed: Value = serde_json::from_str(&response).unwrap();
 
         assert_eq!(parsed["jsonrpc"], "2.0");
-        assert!(parsed["result"]["serverInfo"]["name"] == "ASTra");
+        assert!(parsed["result"]["serverInfo"]["name"] == "ASTRA");
     }
 
     #[test]

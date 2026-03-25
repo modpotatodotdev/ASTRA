@@ -89,7 +89,7 @@ pub fn load_metadata(config: &AstraConfig) -> Result<IndexMetadata> {
     Ok(serde_json::from_str(&json)?)
 }
 
-/// Check if ASTra data exists on disk for the given workspace.
+/// Check if ASTRA data exists on disk for the given workspace.
 pub fn has_persisted_data(config: &AstraConfig) -> bool {
     config.graph_path().exists() && config.vector_db_path().exists()
 }

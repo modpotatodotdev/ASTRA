@@ -1,4 +1,4 @@
-# Zero-Shot Patch Generation: ASTra vs Baselines
+# Zero-Shot Patch Generation: ASTRA vs Baselines
 
 ## Setup
 
@@ -9,7 +9,7 @@
 
 ## Results
 
-| Metric | ASTra | Grep | Ripgrep | Traditional RAG |
+| Metric | ASTRA | Grep | Ripgrep | Traditional RAG |
 |--------|-------|------|---------|-----------------|
 | Valid Patches | **43** | 39 | 40 | **43** |
 | Failed/Empty | 7 | 11 | 10 | 7 |
@@ -17,13 +17,13 @@
 | File Overlap Only | **20** | 17 | **19** | 18 |
 | Wrong File | 12 | 11 | 12 | 10 |
 
-**ASTra and RAG tied for highest completion rate (43/50).** Traditional RAG led on line overlap (15 vs 11), while ASTra led on partial-match file overlap (20 vs 18).
+**ASTRA and RAG tied for highest completion rate (43/50).** Traditional RAG led on line overlap (15 vs 11), while ASTRA led on partial-match file overlap (20 vs 18).
 
 ## Root Cause Analysis: Flat Helper File Problem
 
 ### Case: `astropy__astropy-14213`
 
-RAG got `line_overlap` (perfect match). ASTra got `no_file_overlap` (wrong file entirely).
+RAG got `line_overlap` (perfect match). ASTRA got `no_file_overlap` (wrong file entirely).
 
 **Issue**: `np.histogram()` raises an error when `range=` is an astropy `Quantity`.
 
@@ -32,20 +32,20 @@ RAG got `line_overlap` (perfect match). ASTra got `no_file_overlap` (wrong file 
 | | What happened |
 |---|---|
 | 🟢 **Traditional RAG** | Trivially retrieved `function_helpers.py` via BM25 keyword match. The file is literally full of `histogram`, `range`, `Quantity` keyword hits. LLM patched the exact right spot. |
-| 🔴 **ASTra** | Semantically identified `astropy/units/quantity.py` as the core `Quantity` file (semantically correct for understanding the class), but missed `function_helpers.py` since it's a flat collection of loose functions with no dominant class structure in the AST skeleton. LLM added a `_histogram_helper` function in the wrong file. |
+| 🔴 **ASTRA** | Semantically identified `astropy/units/quantity.py` as the core `Quantity` file (semantically correct for understanding the class), but missed `function_helpers.py` since it's a flat collection of loose functions with no dominant class structure in the AST skeleton. LLM added a `_histogram_helper` function in the wrong file. |
 
 ### Insight
 
-ASTra's strength is navigating **deep class hierarchies** — it excels when the bug lives inside a method of a well-structured class. It is relatively weaker for **flat utility/helper files** that:
+ASTRA's strength is navigating **deep class hierarchies** — it excels when the bug lives inside a method of a well-structured class. It is relatively weaker for **flat utility/helper files** that:
 - Have no dominant class
 - Match the issue description almost word-for-word on keywords
 - Are conventional "dispatch table" files (like numpy function override registries)
 
 This is precisely where lexical BM25 search wins: keyword density alone is sufficient.
 
-## Cases Where ASTra Won Over RAG
+## Cases Where ASTRA Won Over RAG
 
-ASTra beat RAG on 9 instances, typically involving:
+ASTRA beat RAG on 9 instances, typically involving:
 - Cross-module class inheritance (e.g., `astropy-13158`, `astropy-13469`)
 - Issues where the user's error message is semantically distant from the actual code location (e.g., a math error described in natural language, not in code terms)
 

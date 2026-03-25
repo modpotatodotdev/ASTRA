@@ -11,7 +11,7 @@ The XY Problem occurs when:
 The symptom and root cause are **structurally distant** — keyword overlap is low and
 traversing from symptom to fix requires multiple logical hops through the call graph.
 This is exactly where traditional keyword search (grep, ripgrep, BM25 RAG) fails, and
-where graph-based semantic search (ASTra) succeeds.
+where graph-based semantic search (ASTRA) succeeds.
 
 ## Dataset
 
@@ -55,7 +55,7 @@ Requirements: `litellm`, `pydantic`, and a `GEMINI_API_KEY` (or compatible provi
 
 | File | Description |
 |------|-------------|
-| `reports/xy_benchmark_e2e_report_new_FINAL.svg` | Visual dashboard comparing ASTra vs grep/ripgrep on 50 XY cases |
+| `reports/xy_benchmark_e2e_report_new_FINAL.svg` | Visual dashboard comparing ASTRA vs grep/ripgrep on 50 XY cases |
 | `reports/xy_benchmark_e2e_report_final.json` | Raw JSON results for the same run |
 
 To compare XYbench against other benchmark report JSON files using the same
@@ -69,17 +69,17 @@ uv run --script scripts/view_benchmark_grid.py \
 
 ### Key results (50-case XY subset)
 
-| Metric | ASTra | Grep | Ripgrep |
+| Metric | ASTRA | Grep | Ripgrep |
 |--------|------:|-----:|--------:|
 | Retrieval latency (median) | 137.4 ms | 55.5 ms | 150.9 ms |
 | Oracle file hit-rate | **26 %** | 6 % | 0 % |
 | Recall@k | **12.1 %** | 4.1 % | 0 % |
 
-On hard XY problems where keywords give no signal, ASTra's graph-based semantic
+On hard XY problems where keywords give no signal, ASTRA's graph-based semantic
 traversal retrieves the correct files **26 % of the time** compared to 0 % for ripgrep.
 
 ## Migration note
 
-This folder is being extracted into a dedicated standalone repository where ASTra will
+This folder is being extracted into a dedicated standalone repository where ASTRA will
 be used as an MCP tool. The contents here represent the current snapshot prior to that
 migration.

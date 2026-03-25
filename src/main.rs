@@ -28,7 +28,7 @@ fn main() -> Result<()> {
         .canonicalize()
         .unwrap_or_else(|_| workspace_root.clone());
 
-    info!("ASTra starting for workspace: {}", workspace_root.display());
+    info!("ASTRA starting for workspace: {}", workspace_root.display());
 
     let config = AstraConfig::new(&workspace_root);
 

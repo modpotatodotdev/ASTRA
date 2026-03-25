@@ -114,7 +114,7 @@ impl LlmgPatchGenerator {
                 frequency_penalty: None,
                 presence_penalty: None,
                 stop: None,
-                user: Some("ASTra-zero-shot-patch-benchmark".to_string()),
+                user: Some("ASTRA-zero-shot-patch-benchmark".to_string()),
                 tools: None,
                 tool_choice: None,
             };
@@ -223,14 +223,14 @@ async fn main() -> Result<()> {
         let astra_embedder = astra::embeddings::build_embedder(repo_config.embedding_provider.as_str())?;
 
         let (graph, vector_store) = if astra::storage::has_persisted_data(&repo_config) {
-            println!("Loading existing ASTra index for {}...", repo_name);
+            println!("Loading existing ASTRA index for {}...", repo_name);
             let mut g = astra::storage::load_graph(&repo_config)?;
             g.rebuild_after_deserialize();
             let mut v = astra::storage::load_vector_store(&repo_config)?;
             v.rebuild_index();
             (g, v)
         } else {
-            println!("Indexing {} for ASTra...", repo_name);
+            println!("Indexing {} for ASTRA...", repo_name);
             let indexed = indexer::index_workspace(&repo_config, astra_embedder.as_ref())
                 .with_context(|| {
                     format!("failed to index workspace {}", repo_workspace.display())
@@ -512,7 +512,7 @@ fn parse_args() -> Result<Args> {
 
 fn print_help() {
     println!(
-        "Usage:\n  cargo run --bin zero_shot_patch_benchmark -- --workspace <repo> --swe-bench-jsonl <file> --llmg-model <model> [options]\n\nOptions:\n  --output <file>            Output JSON report path (default: benchmarks/reports/predictions.jsonl)\n  --max-cases <n>            Number of SWE-bench cases to evaluate (default: 50)\n  --top-k <n>                Retrieval depth per method (default: 10)\n  --llmg-max-tokens <n>      Max completion tokens for LLMG call (default: 4096)\n  --concurrency <n>          Number of concurrent evaluations (default: 8)\n  --method <method>          Retrieval method (ASTra|grep|ripgrep|traditional_rag, default: ASTra)\n"
+        "Usage:\n  cargo run --bin zero_shot_patch_benchmark -- --workspace <repo> --swe-bench-jsonl <file> --llmg-model <model> [options]\n\nOptions:\n  --output <file>            Output JSON report path (default: benchmarks/reports/predictions.jsonl)\n  --max-cases <n>            Number of SWE-bench cases to evaluate (default: 50)\n  --top-k <n>                Retrieval depth per method (default: 10)\n  --llmg-max-tokens <n>      Max completion tokens for LLMG call (default: 4096)\n  --concurrency <n>          Number of concurrent evaluations (default: 8)\n  --method <method>          Retrieval method (ASTRA|grep|ripgrep|traditional_rag, default: ASTRA)\n"
     );
 }
 

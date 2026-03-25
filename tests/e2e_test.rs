@@ -355,7 +355,7 @@ fn e2e_mcp_initialize() {
     let response = server.handle_message(msg).unwrap();
     let parsed: serde_json::Value = serde_json::from_str(&response).unwrap();
 
-    assert_eq!(parsed["result"]["serverInfo"]["name"], "ASTra");
+    assert_eq!(parsed["result"]["serverInfo"]["name"], "ASTRA");
     assert!(parsed["result"]["capabilities"]["tools"].is_object());
     assert_eq!(parsed["result"]["protocolVersion"], "2025-11-25");
 }
@@ -548,7 +548,7 @@ fn e2e_mcp_stdio_binary_smoke() {
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .spawn()
-        .expect("failed to start ASTra binary");
+        .expect("failed to start ASTRA binary");
 
     let mut stdin = child.stdin.take().expect("failed to capture stdin");
     let stdout = child.stdout.take().expect("failed to capture stdout");
@@ -570,7 +570,7 @@ fn e2e_mcp_stdio_binary_smoke() {
     let init = send(
         r#"{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-11-25","capabilities":{}}}"#,
     );
-    assert_eq!(init["result"]["serverInfo"]["name"], "ASTra");
+    assert_eq!(init["result"]["serverInfo"]["name"], "ASTRA");
     assert_eq!(init["result"]["protocolVersion"], "2025-11-25");
 
     let tools = send(r#"{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}"#);
@@ -602,10 +602,10 @@ fn e2e_mcp_stdio_binary_smoke() {
     assert!(shutdown["error"].is_null());
 
     drop(stdin);
-    let status = child.wait().expect("failed to wait for ASTra process");
+    let status = child.wait().expect("failed to wait for ASTRA process");
     assert!(
         status.success(),
-        "ASTra process exited with status: {status}"
+        "ASTRA process exited with status: {status}"
     );
 }
 
@@ -708,13 +708,13 @@ fn e2e_storage_data_directory() {
     let tmp = TempDir::new().unwrap();
     let config = AstraConfig::new(tmp.path());
 
-    // Data dir should be at .folder/ASTra/
-    assert!(config.data_dir.to_string_lossy().contains(".folder/ASTra"));
+    // Data dir should be at .folder/ASTRA/
+    assert!(config.data_dir.to_string_lossy().contains(".folder/ASTRA"));
 
     let embedder = build_embedder("local").unwrap();
     indexer::index_workspace(&config, embedder.as_ref()).unwrap();
 
-    // Verify the .folder/ASTra directory was created
+    // Verify the .folder/ASTRA directory was created
     assert!(config.data_dir.exists());
     assert!(config.data_dir.join("graph.bin").exists());
     assert!(config.data_dir.join("vector.bin").exists());

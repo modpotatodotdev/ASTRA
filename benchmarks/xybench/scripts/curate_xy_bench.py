@@ -6,7 +6,7 @@ identify the hardest XY problems — cases where the user-reported symptom (X)
 is structurally distant from the actual root-cause patch (Y).
 
 These are the cases where keyword-based RAG would FAIL, but graph-based
-execution traversal (ASTra) would SUCCEED.
+execution traversal (ASTRA) would SUCCEED.
 
 Usage:
     uv run benchmarks/xybench/scripts/curate_xy_bench.py [--input ../data/swebench-lite.jsonl] [--output data/xy_benchmark_50.jsonl] [--limit 50]

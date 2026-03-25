@@ -82,7 +82,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_1">
-      <!-- ASTra -->
+      <!-- ASTRA -->
       <g transform="translate(65.752142 294.498437) scale(0.1 -0.1)">
        <defs>
         <path id="DejaVuSans-41" d="M 2188 4044 
@@ -1685,7 +1685,7 @@ z
       </g>
      </g>
      <g id="text_17">
-      <!-- ASTra -->
+      <!-- ASTRA -->
       <g transform="translate(368.002142 294.498437) scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-41"/>
        <use xlink:href="#DejaVuSans-53" transform="translate(68.408203 0)"/>
@@ -2372,7 +2372,7 @@ z
       </g>
      </g>
      <g id="text_35">
-      <!-- ASTra -->
+      <!-- ASTRA -->
       <g transform="translate(670.252142 294.498437) scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-41"/>
        <use xlink:href="#DejaVuSans-53" transform="translate(68.408203 0)"/>
@@ -3536,7 +3536,7 @@ z
       </g>
      </g>
      <g id="text_54">
-      <!-- ASTra -->
+      <!-- ASTRA -->
       <g transform="translate(65.752142 585.558437) scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-41"/>
        <use xlink:href="#DejaVuSans-53" transform="translate(68.408203 0)"/>
@@ -4020,7 +4020,7 @@ z
       </g>
      </g>
      <g id="text_73">
-      <!-- ASTra -->
+      <!-- ASTRA -->
       <g transform="translate(368.002142 585.558437) scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-41"/>
        <use xlink:href="#DejaVuSans-53" transform="translate(68.408203 0)"/>
@@ -4844,7 +4844,7 @@ z
      </g>
     </g>
     <g id="text_104">
-     <!-- ASTra (Graph+Vector) -->
+     <!-- ASTRA (Graph+Vector) -->
      <g transform="translate(780.494688 522.105469) scale(0.07 -0.07)">
       <use xlink:href="#DejaVuSans-41"/>
       <use xlink:href="#DejaVuSans-53" transform="translate(68.408203 0)"/>
@@ -4944,7 +4944,7 @@ z
      </g>
     </g>
     <g id="text_108">
-     <!-- ASTra (Discovery Map Only) -->
+     <!-- ASTRA (Discovery Map Only) -->
      <g transform="translate(780.494688 563.204219) scale(0.07 -0.07)">
       <use xlink:href="#DejaVuSans-41"/>
       <use xlink:href="#DejaVuSans-53" transform="translate(68.408203 0)"/>

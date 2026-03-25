@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import matplotlib.ticker as ticker
 
-DISPLAY_NAMES =['ASTra\n(Graph+Vector)', 'Grep', 'Ripgrep', 'Traditional\nRAG']
+DISPLAY_NAMES =['ASTRA\n(Graph+Vector)', 'Grep', 'Ripgrep', 'Traditional\nRAG']
 METHOD_KEYS =['astra', 'grep', 'ripgrep', 'traditional_rag']
 COLORS =['#4f46e5', '#f59e0b', '#10b981', '#ec4899'] # Adjusted for slightly deeper academic colors
 
@@ -104,7 +104,7 @@ def make_academic_svg(data: dict, out_path: str):
     ax2.set_ylim(0, max(metrics['avg_total_tokens']) * 1.3)
     ax2.set_xticks(x); ax2.set_xticklabels(DISPLAY_NAMES)
     
-    # Add a special label just to highlight the tiny 15 tokens for ASTra
+    # Add a special label just to highlight the tiny 15 tokens for ASTRA
     astra_skel = metrics['avg_skeleton_tokens'][0]
     ax2.text(0, astra_skel + 200, f'{astra_skel:.1f} tokens', ha='center', va='bottom', fontsize=9, fontweight='bold', color='#111827', style='italic')
     
@@ -143,11 +143,11 @@ def make_academic_svg(data: dict, out_path: str):
         ax5.scatter(metrics['avg_total_tokens'][i], metrics['hit_rate'][i], 
                     color=COLORS[i], s=200, label=DISPLAY_NAMES[i].replace('\n', ' '), edgecolors='black', zorder=5)
     
-    # Add special marker for ASTra Signature (Discovery) cost vs same hit rate
+    # Add special marker for ASTRA Signature (Discovery) cost vs same hit rate
     ax5.scatter(metrics['avg_skeleton_tokens'][0], metrics['hit_rate'][0], 
-                color='#111827', marker='*', s=350, label='ASTra (Discovery Map Only)', edgecolors='white', linewidth=1, zorder=6)
+                color='#111827', marker='*', s=350, label='ASTRA (Discovery Map Only)', edgecolors='white', linewidth=1, zorder=6)
     
-    # Add a connecting line between ASTra Total and ASTra Discovery to show the "Payload Gap"
+    # Add a connecting line between ASTRA Total and ASTRA Discovery to show the "Payload Gap"
     ax5.plot([metrics['avg_skeleton_tokens'][0], metrics['avg_total_tokens'][0]], 
              [metrics['hit_rate'][0], metrics['hit_rate'][0]], 
              color='#4f46e5', linestyle='--', linewidth=1, alpha=0.5, zorder=4)

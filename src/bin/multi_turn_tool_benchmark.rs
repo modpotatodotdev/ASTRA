@@ -178,7 +178,7 @@ fn build_tools() -> Vec<Tool> {
             function: FunctionDefinition {
                 name: "search_astra".to_string(),
                 description: Some(
-                    "Search the codebase using ASTra semantic search. \
+                    "Search the codebase using ASTRA semantic search. \
                      Returns the most relevant code symbols and snippets."
                         .to_string(),
                 ),
@@ -283,7 +283,7 @@ fn build_system_prompt(max_tool_calls: usize) -> String {
          Use as few tool calls as possible — you have a strict limit of {} tool call(s) total.\n\
          \n\
          Available tools:\n\
-         - search_astra(query, top_k): Semantic search over the codebase using ASTra.\n\
+         - search_astra(query, top_k): Semantic search over the codebase using ASTRA.\n\
          - run_grep(pattern, dir): Search with grep.\n\
          - run_ripgrep(pattern, dir): Search with ripgrep (rg).\n\
          - submit_patch(diff): Submit your unified diff patch to fix the issue. \
@@ -473,11 +473,11 @@ fn truncate_output(s: &str, max_chars: usize) -> String {
     }
 }
 
-/// Run ASTra semantic search and format the results as a context string.
+/// Run ASTRA semantic search and format the results as a context string.
 fn run_astra_search(engine: &SearchEngine, query: &str, top_k: usize) -> String {
     let paths = match engine.search(query, top_k) {
         Ok(p) => p,
-        Err(e) => return format!("ASTra search error: {}", e),
+        Err(e) => return format!("ASTRA search error: {}", e),
     };
     let mut seen = HashSet::new();
     let mut context = String::new();
@@ -825,7 +825,7 @@ fn print_help() {
            --output <file>            predictions output path (default: benchmarks/reports/predictions.jsonl)\n\
            --metrics <file>           metrics summary path   (default: benchmarks/reports/metrics.json)\n\
            --max-cases <n>            max SWE-bench cases to evaluate (default: 50)\n\
-           --top-k <n>                ASTra search depth (default: 5)\n\
+           --top-k <n>                ASTRA search depth (default: 5)\n\
            --llmg-max-tokens <n>      max completion tokens (default: 4096)\n\
            --max-tool-calls <n>       max tool calls per issue (default: 10)\n\
            --concurrency <n>          parallel evaluation tasks (default: 8)\n"

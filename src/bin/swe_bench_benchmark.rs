@@ -1168,7 +1168,7 @@ fn extract_files_from_patch(patch: &str) -> HashSet<String> {
 /// token under common BPE tokenizers (cl100k_base, etc.), while plain English
 /// is closer to ~4.  Since benchmark contexts are predominantly source code,
 /// we use `len / 3` which slightly over-estimates for English but is accurate
-/// for the code-heavy payloads ASTra produces.
+/// for the code-heavy payloads ASTRA produces.
 fn estimate_tokens(text: &str) -> u64 {
     text.len() as u64 / 3
 }

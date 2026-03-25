@@ -180,7 +180,7 @@ def make_dashboard(metrics: list[dict], out_path: str):
                       'Files Modified per Patch Distribution', 'Number of Patches', file_cats)
 
     total_cases_per = len(metrics) // max(1, len(methods))
-    fig.suptitle(f'ASTra vs Baselines: Zero-Shot Patch Generation (N={total_cases_per} / method)', 
+    fig.suptitle(f'ASTRA vs Baselines: Zero-Shot Patch Generation (N={total_cases_per} / method)', 
                  fontsize=18, fontweight='900', y=0.96)
 
     os.makedirs(os.path.dirname(Path(out_path)) or '.', exist_ok=True)
