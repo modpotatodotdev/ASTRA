@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2026-03-27
+
+### Fixed
+- **Gitignore entry now uses directory syntax**: `.folder` is added as `.folder/` (with trailing slash), matching gitignore best practices for directory entries.
+- **Robust duplicate detection**: The gitignore check now normalizes both the existing entry and the new entry by stripping trailing slashes, so `.folder` and `.folder/` are recognized as the same entry.
+
+### Changed
+- **Improved gitignore file handling**: When appending to an existing `.gitignore` that doesn't end with a newline, a newline is now inserted first to prevent mangling the last existing entry.
+- **Added logging to gitignore operations**: Successful `.gitignore` writes now log at `info` level; failures log at `warn` level instead of being silently ignored.
+
 ## [0.1.1] - 2026-03-25
 
 ### Added

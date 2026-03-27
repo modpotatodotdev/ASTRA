@@ -1,3 +1,4 @@
+use log::info;
 use std::path::{Path, PathBuf};
 
 /// Configuration for the ASTRA indexing and search engine.
@@ -29,7 +30,7 @@ impl AstraConfig {
         let embedding_provider = std::env::var("ASTRA_EMBEDDING_PROVIDER")
             .unwrap_or_else(|_| default_provider.to_string());
 
-        ensure_gitignore_entry(&workspace_root, ".folder");
+        ensure_gitignore_entry(&workspace_root, ".folder/");
 
         Self {
             workspace_root,
@@ -65,19 +66,45 @@ impl AstraConfig {
 
 fn ensure_gitignore_entry(workspace_root: &Path, entry: &str) {
     let gitignore_path = workspace_root.join(".gitignore");
-    let entry_line = entry.to_string();
-    if let Ok(content) = std::fs::read_to_string(&gitignore_path) {
-        if content.lines().any(|line| line.trim() == entry_line) {
-            return;
-        }
+
+    let entry_stem = entry.trim_end_matches('/').trim();
+
+    let (already_exists, needs_newline) = match std::fs::read_to_string(&gitignore_path) {
+        Ok(content) => (
+            content.lines().any(|line| {
+                let trimmed = line.trim().trim_end_matches('/');
+                trimmed == entry_stem
+            }),
+            !content.is_empty() && !content.ends_with('\n'),
+        ),
+        Err(_) => (false, false),
+    };
+
+    if already_exists {
+        return;
     }
-    if let Ok(mut file) = std::fs::OpenOptions::new()
+
+    match std::fs::OpenOptions::new()
         .create(true)
         .append(true)
         .open(&gitignore_path)
     {
-        use std::io::Write;
-        let _ = writeln!(file, "{}", entry_line);
+        Ok(mut file) => {
+            use std::io::Write;
+            if needs_newline {
+                let _ = file.write_all(b"\n");
+            }
+            let _ = writeln!(file, "{}", entry);
+            info!("Added '{}' to {}", entry, gitignore_path.display());
+        }
+        Err(e) => {
+            log::warn!(
+                "Failed to add '{}' to {}: {}",
+                entry,
+                gitignore_path.display(),
+                e
+            );
+        }
     }
 }
 
